@@ -1,7 +1,7 @@
 :root{
-  --mida: 0;
-  --columnes: 0;
-  --files: 0;
+  --medida: 0;
+  --columnas: 0;
+  --filas: 0;
 }
 
 * { 
@@ -25,44 +25,33 @@ h1 {
   margin-bottom: 15px;
 }
 
-#tauler{
+#tablero{
   background:white;
   border: 1px solid #111827;
-  border-radius: 8px;
-  height: calc(var(--mida) * var(--files));
+  height: calc(var(--medida) * var(--filas));
   overflow: hidden;
   position:relative;
-  width: calc(var(--mida) * var(--columnes));
+  width: calc(var(--medida) * var(--columnas));
 }
 
-.casella{
+.casilla{
   align-items: center;
-  border-radius: 50%;
   display: flex;
   flex-wrap: wrap;
-  height: var(--mida);
+  height: var(--medida);
   justify-content: center;
   position: absolute;
   user-select: none;
-  width: var(--mida);
+  width: var(--medida);
+  background-size: cover;
+  border: 2px solid black;
+  transition: transform 0.3s;
 }
 
-.casella:hover{
+.casilla:hover{
   background:#d6dee0;
   cursor: pointer;
-}
-
-#fitxaBlava{
-  background:#00b3ff;
-  border-radius: 50%;
-  height: var(--mida);
-  left:0;
-  opacity: 0.5;
-  overflow: hidden;
-  position:absolute;
-  top:0;
-  transition: transform 350ms ease;
-  width: var(--mida);
+  transform: translate(x, y);
 }
 
 .controls{

@@ -1,79 +1,84 @@
 "use strict"
 
-const midaCasella = 100
-const numFiles = 3
-const numColumnes = 3
+const medidaCasilla = 100
+const numFilas = 3
+const numColumnas = 3
 
-let posicioActual = {
-  fila: 0,
-  columna: 0
-}
+let tableroResuelto = [
+  [1, 2, 3],
+  [4, 5, 6],
+  [7, 8, 0]
+];
+
+let tableroActual = [
+  [1, 2, 3],
+  [4, 5, 6],
+  [7, 8, 0]
+];
+
+let movimientos = 0
 
 function init() {
 
-  // Definir els valors de les variables CSS
+  // Definir los valors de las variablas CSS
   const refCSSRoot = document.documentElement
-  refCSSRoot.style.setProperty("--mida", midaCasella + "px")
-  refCSSRoot.style.setProperty("--files", numFiles)
-  refCSSRoot.style.setProperty("--columnes", numColumnes)
+  refCSSRoot.style.setProperty("--medida", medidaCasilla + "px")
+  refCSSRoot.style.setProperty("--filas", numFilas)
+  refCSSRoot.style.setProperty("--columnas", numColumnas)
 
-  // Obtenir referència al tauler on es col·locaran les caselles
-  const refTauler = document.getElementById("tauler")
+  // Obtener la referencia del tablero donde se colocaran las casillas
+  const refTablero = document.getElementById("tablero")
 
-  // Afegir caselles al tauler
-  for (let fila = 0; fila < numFiles; fila++) {
-    for (let columna = 0; columna < numColumnes; columna++) {
+  // Agregar casillas al tablero
+  for (let fila = 0; fila < numFilas; fila++) {
+    for (let columna = 0; columna < numColumnas; columna++) {
 
-      const refCasella = document.createElement("div")
-      refCasella.classList.add("casella")
-      refCasella.addEventListener("click", () => mouFitxa(fila, columna))
-      refCasella.textContent = `${fila * numColumnes + columna}`
-      refCasella.style.left = `${columna * midaCasella}px`
-      refCasella.style.top = `${fila * midaCasella}px`
-      refTauler.appendChild(refCasella)
-      
+      const valor = tableroActual[fila][columna]
+
+      const refCasilla = document.createElement("div");
+      refCasilla.classList.add("casilla");
+      refCasilla.numero = valor;
+      refCasilla.style.backgroundImage = `url('assets/${valor}.png')`
+      refCasilla.style.left = `${columna * medidaCasilla}px`
+      refCasilla.style.top = `${fila * medidaCasilla}px`     
+      refCasilla.addEventListener("click", () => moverCasilla(fila, columna))
+      refTablero.appendChild(refCasilla);
     }
   }
 
-  // Crear la fitxa blava que es mourà pel tauler
-  var refFitxa = document.createElement("div")
-  refFitxa.setAttribute("id", "fitxaBlava")
-
-  // Afegir la fitxa blava al tauler
-  refTauler.appendChild(refFitxa)
-
-  // Afegir event al botó de reset
+  // Agregar el boton de Reiniciar
   const refReset = document.getElementById("btnReinici")
-  refReset.addEventListener("click", reinicia)
+  refReset.addEventListener("click", reiniciar)
 
-  reinicia()
+  //reiniciar()
 }
 
-function mouFitxa(fila, columna) {
+function moverCasilla(fila, columna) {
+  var filaHueca = 0
+  var columnaHueca = 0
 
-  // Actualitzar les dades del joc
-  posicioActual.fila = fila
-  posicioActual.columna = columna
+  for (let f = 0; f < numFilas; f++) {
+    for (let c = 0; c < numColumnas; c++) {
+      const valor = tableroActual[f][c]
 
-  // Mostrar canvis a la web
-  actualitzaDOM()
+      if (valor === 0) {
+        filaHueca = f;
+        columnaHueca = c;
+      }
+    }
+  }
+
+
+  // Mostrar los cambios en la Web
+  actualizarDOM()
 }
 
-function actualitzaDOM() {
+function actualizarDOM() {
+  const refTablero = document.getElementById("tablero");
 
-  // Calcular la posició en píxels a partir de la fila i columna
-  const posicioX = posicioActual.columna * midaCasella
-  const posicioY = posicioActual.fila * midaCasella
-
-  // Aplicar la transformació CSS per moure la fitxa
-  const refFitxa = document.getElementById("fitxaBlava")
-  refFitxa.style.transform = `translate(${posicioX}px, ${posicioY}px)`
   
-  // Actualitzar informació de la posició
-  const refInfo = document.getElementById("info")
-  refInfo.textContent = `Fila: ${posicioActual.fila}, Columna: ${posicioActual.columna}`
 }
 
-function reinicia() {
+function reiniciar() {
   mouFitxa(1, 1)
 }
