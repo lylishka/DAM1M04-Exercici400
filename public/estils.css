@@ -27,7 +27,7 @@ h1 {
 
 #tablero{
   background:white;
-  border: 1px solid #111827;
+  border: 3px solid #111827;
   height: calc(var(--medida) * var(--filas));
   overflow: hidden;
   position:relative;
@@ -44,14 +44,13 @@ h1 {
   user-select: none;
   width: var(--medida);
   background-size: cover;
-  border: 2px solid black;
-  transition: transform 0.3s;
+  border: 3px solid black;
+  transition: transform 0.3s ease-in-out;
+  position: absolute;
 }
 
 .casilla:hover{
-  background:#d6dee0;
   cursor: pointer;
-  transform: translate(x, y);
 }
 
 .controls{
