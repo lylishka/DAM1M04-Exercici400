@@ -140,7 +140,7 @@ function comprovar() {
   }
 
   if (victoria === true && movimientos > 0) {
-    document.getElementById("info").textContent = "Finalizado";
+    document.getElementById("info").textContent = "Finalizado en " + movimientos;
   }
 
 }
